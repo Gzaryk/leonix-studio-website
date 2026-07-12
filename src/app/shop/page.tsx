@@ -1,0 +1,27 @@
+import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared/page-header";
+import { ShopGrid } from "@/components/shop/shop-grid";
+import { getAllProducts } from "@/lib/products";
+
+export const metadata: Metadata = {
+  title: "Shop",
+  description:
+    "Browse Leonix Studio's collection of premium, high-fidelity FiveM MLOs and scripts built for serious roleplay servers.",
+};
+
+export default function ShopPage() {
+  const products = getAllProducts();
+
+  return (
+    <>
+      <PageHeader
+        eyebrow="The Collection"
+        title="Premium assets, built for immersion."
+        description="Every release is fully custom, optimized, and backed by lifetime updates. This is only the beginning."
+      />
+      <section className="mx-auto max-w-7xl px-6 pb-32 lg:px-8">
+        <ShopGrid products={products} />
+      </section>
+    </>
+  );
+}
