@@ -23,17 +23,9 @@ function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
     case "ADD_ITEM": {
       const existing = state.items.find((i) => i.product.id === action.product.id);
-      if (existing) {
-        return {
-          items: state.items.map((i) =>
-            i.product.id === action.product.id
-              ? { ...i, quantity: i.quantity + (action.quantity ?? 1) }
-              : i
-          ),
-        };
-      }
+      if (existing) return state;
       return {
-        items: [...state.items, { product: action.product, quantity: action.quantity ?? 1 }],
+        items: [...state.items, { product: action.product, quantity: 1 }],
       };
     }
     case "REMOVE_ITEM":
@@ -93,8 +85,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [state.items]);
 
-  const addItem = useCallback((product: Product, quantity?: number) => {
-    dispatch({ type: "ADD_ITEM", product, quantity });
+  const addItem = useCallback((product: Product, _quantity?: number) => {
+    dispatch({ type: "ADD_ITEM", product, quantity: 1 });
   }, []);
 
   const removeItem = useCallback((productId: string) => {
