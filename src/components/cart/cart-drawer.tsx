@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Minus, Plus, Trash2, ShoppingBag, ArrowUpRight } from "lucide-react";
+import { X, Trash2, ShoppingBag, ArrowUpRight } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [checkingOut, setCheckingOut] = useState(false);
-  const { items, itemCount, total, updateQuantity, removeItem, clearCart } = useCart();
+  const { items, itemCount, total, removeItem, clearCart } = useCart();
 
   useEffect(() => {
     if (open) {
@@ -102,30 +102,9 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
                             </button>
                           </div>
 
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-1">
-                              <button
-                                onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                                data-cursor-hover
-                                className="flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-muted transition-colors hover:text-foreground"
-                              >
-                                <Minus className="h-3 w-3" />
-                              </button>
-                              <span className="w-8 text-center text-sm font-medium">
-                                {item.quantity}
-                              </span>
-                              <button
-                                onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                                data-cursor-hover
-                                className="flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-muted transition-colors hover:text-foreground"
-                              >
-                                <Plus className="h-3 w-3" />
-                              </button>
-                            </div>
-                            <span className="text-sm font-semibold">
-                              {formatPrice(item.product.price * item.quantity, item.product.currency)}
-                            </span>
-                          </div>
+                          <span className="text-sm font-semibold">
+                            {formatPrice(item.product.price, item.product.currency)}
+                          </span>
                         </div>
                       </li>
                     ))}

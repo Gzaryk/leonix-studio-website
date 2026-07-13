@@ -2,10 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createBasket, getBasketAuthLinks, addPackageToBasket, getBasket, isTebexConfigured } from "@/lib/tebex";
 import { getProductBySlug } from "@/lib/products";
 
-const origin = (req: NextRequest) => req.nextUrl.origin;
-
 export async function GET(req: NextRequest) {
-  const base = origin(req);
+  const base = req.nextUrl.origin;
 
   if (!isTebexConfigured()) {
     return NextResponse.redirect(new URL("/shop?checkout=unavailable", base));
@@ -33,7 +31,8 @@ export async function GET(req: NextRequest) {
 
     const callbackUrl = new URL("/api/tebex/checkout/callback", base);
     callbackUrl.searchParams.set("ident", basketIdent);
-    callbackUrl.searchParams.set("items", items.map((i) => `${i.slug}:${i.quantity}`).join(","));
+    callbackUrl.searchParams.set("package", String(items[0].slug));
+    callbackUrl.searchParams.set("slug", items[0].slug);
 
     const authOptions = await getBasketAuthLinks(basketIdent, callbackUrl.toString());
 

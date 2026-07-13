@@ -99,6 +99,7 @@ export function BuyBox({ product }: { product: Product }) {
 
       <div className="mt-6 flex flex-col gap-2">
         <Button
+          disabled={isInCart(product.id)}
           onClick={() => {
             addItem(product);
             toast.success(`${product.name} added to cart`);
@@ -106,7 +107,7 @@ export function BuyBox({ product }: { product: Product }) {
           size="lg"
           className="w-full"
         >
-          <ShoppingCart className="h-4 w-4" /> Add to Cart
+          <ShoppingCart className="h-4 w-4" /> {isInCart(product.id) ? "Already in Cart" : "Add to Cart"}
         </Button>
         <Button
           onClick={handleBuy}
