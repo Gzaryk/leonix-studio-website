@@ -62,6 +62,7 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  overflow-x: hidden;
 }
 
 body {
@@ -69,13 +70,10 @@ body {
   color: var(--color-foreground);
   font-family: var(--color-sans);
   overflow-x: hidden;
-  cursor: none;
 }
 
-@media (pointer: coarse) {
-  body {
-    cursor: auto;
-  }
+[data-cursor-hover] {
+  cursor: pointer;
 }
 
 /* Scrollbar */
@@ -107,14 +105,12 @@ body {
 .glass {
   background: var(--color-glass);
   backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
   border: 1px solid var(--color-border-glass);
 }
 
 .glass-strong {
   background: var(--color-glass-strong);
   backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
   border: 1px solid var(--color-border-glass);
 }
 

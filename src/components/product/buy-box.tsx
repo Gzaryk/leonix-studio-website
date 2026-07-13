@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Check, Loader2, ShieldCheck, Star, Zap } from "lucide-react";
+import { Check, Loader2, ShieldCheck, ShoppingCart, Star } from "lucide-react";
 import { toast } from "sonner";
 import type { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
@@ -102,7 +102,7 @@ export function BuyBox({ product }: { product: Product }) {
           </>
         ) : (
           <>
-            <Zap className="h-4 w-4" /> Buy Now
+            <ShoppingCart className="h-4 w-4" /> Buy Now
           </>
         )}
       </Button>

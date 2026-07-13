@@ -23,7 +23,7 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
               initial={{ opacity: 0, scale: 1.02 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4 }}
-              className="h-full w-full"
+              className="relative h-full w-full"
             >
               <Image
                 src={images[active]}

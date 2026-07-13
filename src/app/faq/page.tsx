@@ -58,7 +58,7 @@ export default function FaqPage() {
         title="Frequently asked questions."
         description="Can't find what you're looking for? Reach out to us on Discord."
       />
-      <section className="mx-auto max-w-3xl px-6 pb-32 lg:px-8">
+      <section className="mx-auto max-w-3xl px-6 pb-20 pt-20 lg:px-8">
         <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, i) => (
             <AccordionItem key={i} value={`faq-${i}`}>

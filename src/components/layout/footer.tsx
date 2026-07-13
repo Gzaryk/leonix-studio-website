@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
@@ -8,7 +9,7 @@ import { fadeUp, revealViewport } from "@/lib/animations";
 
 export function Footer() {
   return (
-    <footer className="relative mt-32 overflow-hidden border-t border-white/10">
+    <footer className="relative mt-24 overflow-hidden border-t border-white/10">
       <div className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[60rem] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-20 lg:px-8">
@@ -42,9 +43,13 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 py-14 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-1">
             <Link href="/" className="flex items-center gap-2" data-cursor-hover>
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary font-display text-sm font-bold text-background">
-                L
-              </span>
+              <Image
+                src={siteConfig.logo}
+                alt={siteConfig.name}
+                width={32}
+                height={32}
+                className="h-8 w-auto"
+              />
               <span className="font-display text-lg font-semibold">
                 {siteConfig.shortName}
                 <span className="text-primary">.</span>

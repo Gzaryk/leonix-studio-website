@@ -17,7 +17,7 @@ export default function LegalPage() {
   return (
     <>
       <PageHeader eyebrow="Legal" title="Policies & Terms" />
-      <section className="mx-auto max-w-3xl px-6 pb-32 lg:px-8">
+      <section className="mx-auto max-w-3xl px-6 pb-20 pt-20 lg:px-8">
         <div className="grid gap-6 sm:grid-cols-2">
           {docs.map((doc) => (
             <Link

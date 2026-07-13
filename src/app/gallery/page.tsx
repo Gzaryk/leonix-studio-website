@@ -16,7 +16,7 @@ export default function GalleryPage() {
         title="Every detail, up close."
         description="A closer look at the craftsmanship behind each Leonix Studio release."
       />
-      <section className="mx-auto max-w-7xl px-6 pb-32 lg:px-8">
+      <section className="mx-auto max-w-7xl px-6 pb-20 pt-20 lg:px-8">
         <MasonryGallery images={galleryImages} categories={getGalleryCategories()} />
       </section>
     </>

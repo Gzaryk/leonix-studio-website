@@ -19,7 +19,7 @@ export default function ShopPage() {
         title="Premium assets, built for immersion."
         description="Every release is fully custom, optimized, and backed by lifetime updates. This is only the beginning."
       />
-      <section className="mx-auto max-w-7xl px-6 pb-32 lg:px-8">
+      <section className="mx-auto max-w-7xl px-6 pb-20 pt-20 lg:px-8">
         <ShopGrid products={products} />
       </section>
     </>

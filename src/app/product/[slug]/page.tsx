@@ -41,7 +41,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const related = getRelatedProducts(slug);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 pb-32 pt-32 lg:px-8">
+    <div className="mx-auto max-w-7xl px-6 pb-20 pt-32 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
         <ProductGallery images={product.images} name={product.name} />
         <Suspense fallback={null}>
