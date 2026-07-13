@@ -52,23 +52,17 @@ import "server-only";
 const TEBEX_API_BASE_URL =
   process.env.TEBEX_API_BASE_URL ?? "https://headless.tebex.io/api";
 
-const WEBSTORE_TOKEN = process.env.TEBEX_WEBSTORE_TOKEN;
+export function isTebexConfigured() {
+  return Boolean(process.env.TEBEX_WEBSTORE_TOKEN);
+}
 
-export const isTebexConfigured = Boolean(WEBSTORE_TOKEN);
+function token() {
+  const t = process.env.TEBEX_WEBSTORE_TOKEN;
+  if (!t) throw new Error("Tebex is not configured. Set TEBEX_WEBSTORE_TOKEN in your environment.");
+  return t;
+}
 
-/**
- * Low-level fetch wrapper. `path` is relative to `${TEBEX_API_BASE_URL}`
- * and must include whichever prefix the specific endpoint requires — some
- * endpoints need `/accounts/{token}/...`, others (basket package
- * mutations) do not. See the module doc-comment above.
- */
 async function tebexFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  if (!WEBSTORE_TOKEN) {
-    throw new Error(
-      "Tebex is not configured. Set TEBEX_WEBSTORE_TOKEN in your environment."
-    );
-  }
-
   const res = await fetch(`${TEBEX_API_BASE_URL}${path}`, {
     ...init,
     headers: {
@@ -76,19 +70,14 @@ async function tebexFetch<T>(path: string, init?: RequestInit): Promise<T> {
       Accept: "application/json",
       ...init?.headers,
     },
-    // Basket state must never be cached; catalog reads opt into caching
-    // individually via `next.revalidate`.
     cache: init?.cache ?? "no-store",
   });
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new Error(
-      `Tebex request failed (${res.status}): ${body || res.statusText}`
-    );
+    throw new Error(`Tebex request failed (${res.status}): ${body || res.statusText}`);
   }
 
-  // Tebex returns 204 No Content for a couple of mutation endpoints.
   if (res.status === 204) return undefined as T;
 
   return res.json() as Promise<T>;
@@ -114,21 +103,12 @@ interface Basket {
   links: { payment?: string; checkout: string };
 }
 
-/**
- * Create a new basket for the current visitor. Baskets are what Tebex
- * calls a "cart" — this returns an `ident` used for subsequent basket
- * mutations, plus a checkout link once at least one package is added.
- *
- * NOTE: the returned basket generally cannot accept packages yet. Check
- * `getBasketAuthLinks` first — if it returns any options, the customer
- * must complete that login flow before `addPackageToBasket` will succeed.
- */
 export async function createBasket(params: {
   completeUrl: string;
   cancelUrl: string;
   custom?: Record<string, string>;
 }) {
-  return tebexFetch<{ data: Basket }>(`/accounts/${WEBSTORE_TOKEN}/baskets`, {
+  return tebexFetch<{ data: Basket }>(`/accounts/${token()}/baskets`, {
     method: "POST",
     body: JSON.stringify({
       complete_url: params.completeUrl,
@@ -139,31 +119,13 @@ export async function createBasket(params: {
   });
 }
 
-/**
- * Fetches the login/auth options available for a basket (e.g. Steam,
- * FiveM/Cfx.re). The customer's browser must be redirected to one of
- * these URLs, and Tebex will redirect back to `returnUrl` once the
- * basket has been authorized. Returns an empty array if the store does
- * not require authentication.
- */
 export async function getBasketAuthLinks(basketIdent: string, returnUrl: string) {
   return tebexFetch<AuthOption[]>(
-    `/accounts/${WEBSTORE_TOKEN}/baskets/${basketIdent}/auth?returnUrl=${encodeURIComponent(
-      returnUrl
-    )}`,
+    `/accounts/${token()}/baskets/${basketIdent}/auth?returnUrl=${encodeURIComponent(returnUrl)}`,
     { method: "GET" }
   );
 }
 
-/**
- * Add a package (product) to an existing, already-authorized basket.
- * Calling this before the customer has completed the auth flow (for
- * stores that require one) is what causes Tebex's
- * `422 User must login before adding packages to basket` error.
- *
- * Per Tebex's API, this endpoint is called WITHOUT the
- * `/accounts/{token}` prefix.
- */
 export async function addPackageToBasket(
   basketIdent: string,
   packageId: number,
@@ -175,10 +137,9 @@ export async function addPackageToBasket(
   });
 }
 
-/** Retrieve an existing basket, including its checkout link. */
 export async function getBasket(basketIdent: string) {
   return tebexFetch<{ data: Basket }>(
-    `/accounts/${WEBSTORE_TOKEN}/baskets/${basketIdent}`,
+    `/accounts/${token()}/baskets/${basketIdent}`,
     { cache: "no-store" }
   );
 }

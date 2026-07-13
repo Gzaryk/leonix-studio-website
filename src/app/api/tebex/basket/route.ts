@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createBasket, getBasket, isTebexConfigured } from "@/lib/tebex";
-import { siteConfig } from "@/config/site";
 
 export async function POST() {
-  if (!isTebexConfigured) {
+  if (!isTebexConfigured()) {
     return NextResponse.json(
       { error: "Tebex is not configured yet." },
       { status: 503 }
@@ -12,8 +11,8 @@ export async function POST() {
 
   try {
     const basket = await createBasket({
-      completeUrl: `${siteConfig.url}/shop?checkout=success`,
-      cancelUrl: `${siteConfig.url}/shop?checkout=cancelled`,
+      completeUrl: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/shop?checkout=success`,
+      cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/shop?checkout=cancelled`,
     });
 
     return NextResponse.json(basket);
@@ -30,7 +29,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Missing basket ident." }, { status: 400 });
   }
 
-  if (!isTebexConfigured) {
+  if (!isTebexConfigured()) {
     return NextResponse.json(
       { error: "Tebex is not configured yet." },
       { status: 503 }
