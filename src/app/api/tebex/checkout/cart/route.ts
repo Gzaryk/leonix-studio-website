@@ -29,9 +29,12 @@ export async function GET(req: NextRequest) {
 
     const basketIdent = basket.data.ident;
 
+    const firstProduct = getProductBySlug(items[0].slug);
+    const firstPackageId = firstProduct?.tebexPackageId;
+
     const callbackUrl = new URL("/api/tebex/checkout/callback", base);
     callbackUrl.searchParams.set("ident", basketIdent);
-    callbackUrl.searchParams.set("package", String(items[0].slug));
+    if (firstPackageId) callbackUrl.searchParams.set("package", String(firstPackageId));
     callbackUrl.searchParams.set("slug", items[0].slug);
 
     const authOptions = await getBasketAuthLinks(basketIdent, callbackUrl.toString());
