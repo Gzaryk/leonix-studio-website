@@ -17,22 +17,22 @@ export async function GET(req: NextRequest) {
 
   try {
     const items: { slug: string; quantity: number }[] = itemsRaw
-      ? JSON.parse(itemsRaw)
+      ? itemsRaw.split(",").map((part) => {
+          const [s, q] = part.split(":");
+          return { slug: s, quantity: Number(q) || 1 };
+        })
       : packageIdRaw
         ? [{ slug, quantity: 1 }]
         : [];
 
     if (items.length === 0) {
-      return NextResponse.redirect(
-        new URL(`/shop?checkout=error`, base)
-      );
+      return NextResponse.redirect(new URL(`/shop?checkout=error`, base));
     }
 
     for (const item of items) {
-      const product = slug && !item.slug ? getProductBySlug(slug) : getProductBySlug(item.slug);
-      const pid = product?.tebexPackageId ?? (packageIdRaw ? Number(packageIdRaw) : null);
-      if (!pid) continue;
-      await addPackageToBasket(ident, pid, item.quantity || 1);
+      const product = getProductBySlug(item.slug);
+      if (!product?.tebexPackageId) continue;
+      await addPackageToBasket(ident, product.tebexPackageId, item.quantity);
     }
 
     const basket = await getBasket(ident);
