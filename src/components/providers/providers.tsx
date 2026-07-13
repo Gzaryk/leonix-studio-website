@@ -2,11 +2,14 @@
 
 import { Toaster } from "sonner";
 import { ThemeProvider } from "./theme-provider";
+import { CartProvider } from "@/lib/cart-context";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
-      {children}
+      <CartProvider>
+        {children}
+      </CartProvider>
       <Toaster
         theme="dark"
         position="bottom-right"

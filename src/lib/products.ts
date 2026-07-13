@@ -25,12 +25,12 @@ export const products: Product[] = [
     compareAtPrice: 14.99,
     currency: "EUR",
     images: [
-      "/images/products/nova-heights/hero.jpg",
-      "/images/products/nova-heights/living.jpg",
-      "/images/products/nova-heights/terrace.jpg",
-      "/images/products/nova-heights/bar.jpg",
-      "/images/products/nova-heights/bedroom.jpg",
-      "/images/products/nova-heights/office.jpg",
+      "/images/products/nova-heights/hero.webp",
+      "/images/products/nova-heights/living.webp",
+      "/images/products/nova-heights/terrace.webp",
+      "/images/products/nova-heights/bar.webp",
+      "/images/products/nova-heights/bedroom.webp",
+      "/images/products/nova-heights/office.webp",
     ],
     features: [
       "Fully custom interior — no retexture kits",

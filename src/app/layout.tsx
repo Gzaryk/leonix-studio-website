@@ -5,8 +5,7 @@ import { siteConfig } from "@/config/site";
 import { Providers } from "@/components/providers/providers";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-// import { CustomCursor } from "@/components/shared/custom-cursor";
-// import { ScrollProgress } from "@/components/shared/scroll-progress";
+import { JsonLd } from "@/components/shared/json-ld";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -42,6 +41,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
+        site: "@leonixstudio",
         title: `${siteConfig.name} — Premium FiveM Assets`,
         description: siteConfig.description,
         images: [siteConfig.ogImage],
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         },
     },
     alternates: {
-        canonical: siteConfig.url,
+        canonical: "/",
     },
   icons: {
     icon: [
@@ -70,6 +70,7 @@ export const metadata: Metadata = {
   },
     other: {
         "apple-mobile-web-app-title": "Leonix",
+        "theme-color": "#09090b",
     },
 };
 
@@ -83,6 +84,7 @@ export default function RootLayout({
                     <Navbar />
                     <main className="relative">{children}</main>
                     <Footer />
+                    <JsonLd />
                 </Providers>
             </body>
         </html>

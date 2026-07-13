@@ -41,28 +41,3 @@ export interface GalleryImage {
   width: number;
   height: number;
 }
-
-export interface TebexBasketResponse {
-  data: {
-    ident: string;
-    id: number;
-    country: string;
-    ip: string;
-    username?: string;
-    base_price: number;
-    sales_tax: number;
-    total_price: number;
-    currency: string;
-    packages: unknown[];
-    links: {
-      checkout: string;
-    };
-  };
-}
-
-export interface TebexCreateBasketPayload {
-  complete_url: string;
-  cancel_url: string;
-  complete_auto_redirect?: boolean;
-  custom?: Record<string, string>;
-}
