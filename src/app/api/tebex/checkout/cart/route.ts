@@ -1,40 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createBasket, getBasketAuthLinks, addPackageToBasket, getBasket, isTebexConfigured } from "@/lib/tebex";
 import { getProductBySlug } from "@/lib/products";
-import { siteConfig } from "@/config/site";
+
+const origin = (req: NextRequest) => req.nextUrl.origin;
 
 export async function GET(req: NextRequest) {
+  const base = origin(req);
+
   if (!isTebexConfigured) {
-    return NextResponse.redirect(
-      new URL("/shop?checkout=unavailable", siteConfig.url)
-    );
+    return NextResponse.redirect(new URL("/shop?checkout=unavailable", base));
   }
 
   try {
     const raw = req.nextUrl.searchParams.get("items");
     if (!raw) {
-      return NextResponse.redirect(
-        new URL("/shop?checkout=error", siteConfig.url)
-      );
+      return NextResponse.redirect(new URL("/shop?checkout=error", base));
     }
 
     const items: { slug: string; quantity: number }[] = JSON.parse(raw);
 
     if (items.length === 0) {
-      return NextResponse.redirect(
-        new URL("/shop?checkout=error", siteConfig.url)
-      );
+      return NextResponse.redirect(new URL("/shop?checkout=error", base));
     }
 
     const basket = await createBasket({
-      completeUrl: `${siteConfig.url}/shop?checkout=success`,
-      cancelUrl: `${siteConfig.url}/shop?checkout=cancelled`,
+      completeUrl: `${base}/shop?checkout=success`,
+      cancelUrl: `${base}/shop?checkout=cancelled`,
       custom: {},
     });
 
     const basketIdent = basket.data.ident;
 
-    const callbackUrl = new URL("/api/tebex/checkout/callback", siteConfig.url);
+    const callbackUrl = new URL("/api/tebex/checkout/callback", base);
     callbackUrl.searchParams.set("ident", basketIdent);
 
     const authOptions = await getBasketAuthLinks(basketIdent, callbackUrl.toString());
@@ -55,8 +52,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(refreshed.data.links.checkout);
   } catch (error) {
     console.error("Tebex cart checkout error:", error);
-    return NextResponse.redirect(
-      new URL("/shop?checkout=error", siteConfig.url)
-    );
+    return NextResponse.redirect(new URL("/shop?checkout=error", base));
   }
 }
