@@ -3,7 +3,7 @@ import type { GalleryImage } from "@/types";
 export const galleryImages: GalleryImage[] = [
     {
         id: "g1",
-        src: "/images/products/nova-heights/hero.jpg",
+        src: "/images/products/nova-heights/hero.webp",
         alt: "Nova Heights Penthouse skyline view",
         category: "mlo",
         width: 1600,
@@ -11,7 +11,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: "g2",
-        src: "/images/products/nova-heights/living.jpg",
+        src: "/images/products/nova-heights/living.webp",
         alt: "Nova Heights living room",
         category: "mlo",
         width: 1600,
@@ -19,7 +19,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: "g3",
-        src: "/images/products/nova-heights/terrace.jpg",
+        src: "/images/products/nova-heights/terrace.webp",
         alt: "Nova Heights rooftop terrace",
         category: "mlo",
         width: 1600,
@@ -27,7 +27,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: "g4",
-        src: "/images/products/nova-heights/bar.jpg",
+        src: "/images/products/nova-heights/bar.webp",
         alt: "Nova Heights private bar",
         category: "mlo",
         width: 1200,
@@ -35,7 +35,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: "g5",
-        src: "/images/products/nova-heights/bedroom.jpg",
+        src: "/images/products/nova-heights/bedroom.webp",
         alt: "Nova Heights master bedroom",
         category: "mlo",
         width: 1600,
@@ -43,7 +43,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: "g6",
-        src: "/images/products/nova-heights/office.jpg",
+        src: "/images/products/nova-heights/office.webp",
         alt: "Nova Heights office study",
         category: "mlo",
         width: 1600,

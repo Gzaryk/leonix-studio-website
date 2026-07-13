@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Check, Loader2, ShieldCheck, ShoppingCart, Star } from "lucide-react";
+import { Check, Loader2, ShieldCheck, ShoppingCart, Star, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import type { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
+import { useCart } from "@/lib/cart-context";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -29,6 +30,7 @@ export function BuyBox({ product }: { product: Product }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { addItem, isInCart } = useCart();
 
   useEffect(() => {
     const status = searchParams.get("checkout");
@@ -95,17 +97,33 @@ export function BuyBox({ product }: { product: Product }) {
       </div>
       <span className="text-xs text-muted">One-time purchase &middot; instant delivery</span>
 
-      <Button onClick={handleBuy} disabled={loading} size="lg" className="mt-6 w-full">
-        {loading ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin" /> Starting checkout...
-          </>
-        ) : (
-          <>
-            <ShoppingCart className="h-4 w-4" /> Buy Now
-          </>
-        )}
-      </Button>
+      <div className="mt-6 flex flex-col gap-2">
+        <Button
+          onClick={() => {
+            addItem(product);
+            toast.success(`${product.name} added to cart`);
+          }}
+          size="lg"
+          className="w-full"
+        >
+          <ShoppingCart className="h-4 w-4" /> Add to Cart
+        </Button>
+        <Button
+          onClick={handleBuy}
+          disabled={loading}
+          variant="secondary"
+          size="sm"
+          className="w-full"
+        >
+          {loading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <>
+              Buy Now <ArrowUpRight className="h-3.5 w-3.5" />
+            </>
+          )}
+        </Button>
+      </div>
 
       <div className="mt-6 flex items-center gap-2 text-xs text-muted">
         <ShieldCheck className="h-4 w-4 text-primary" />

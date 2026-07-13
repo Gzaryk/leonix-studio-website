@@ -56,15 +56,6 @@ const WEBSTORE_TOKEN = process.env.TEBEX_WEBSTORE_TOKEN;
 
 export const isTebexConfigured = Boolean(WEBSTORE_TOKEN);
 
-class TebexError extends Error {
-  status?: number;
-  constructor(message: string, status?: number) {
-    super(message);
-    this.name = "TebexError";
-    this.status = status;
-  }
-}
-
 /**
  * Low-level fetch wrapper. `path` is relative to `${TEBEX_API_BASE_URL}`
  * and must include whichever prefix the specific endpoint requires — some
@@ -73,7 +64,7 @@ class TebexError extends Error {
  */
 async function tebexFetch<T>(path: string, init?: RequestInit): Promise<T> {
   if (!WEBSTORE_TOKEN) {
-    throw new TebexError(
+    throw new Error(
       "Tebex is not configured. Set TEBEX_WEBSTORE_TOKEN in your environment."
     );
   }
@@ -92,9 +83,8 @@ async function tebexFetch<T>(path: string, init?: RequestInit): Promise<T> {
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new TebexError(
-      `Tebex request failed (${res.status}): ${body || res.statusText}`,
-      res.status
+    throw new Error(
+      `Tebex request failed (${res.status}): ${body || res.statusText}`
     );
   }
 
@@ -104,23 +94,12 @@ async function tebexFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-export interface TebexPackage {
-  id: number;
+export interface AuthOption {
   name: string;
-  description: string;
-  image: string | null;
-  type: "single" | "subscription";
-  category: { id: number; name: string };
-  base_price: number;
-  sales_tax: number;
-  total_price: number;
-  currency: string;
-  discount: number;
-  disable_quantity: boolean;
-  disable_gifting: boolean;
+  url: string;
 }
 
-export interface TebexBasket {
+interface Basket {
   ident: string;
   id: number;
   complete: boolean;
@@ -133,26 +112,6 @@ export interface TebexBasket {
   currency: string;
   packages: unknown[];
   links: { payment?: string; checkout: string };
-}
-
-export interface TebexAuthOption {
-  name: string;
-  url: string;
-}
-
-/** Fetch the full catalog of packages configured in the Tebex store. */
-export async function getTebexPackages() {
-  return tebexFetch<{ data: TebexPackage[] }>(`/accounts/${WEBSTORE_TOKEN}/packages`, {
-    next: { revalidate: 300 },
-  });
-}
-
-/** Fetch a single package by its Tebex ID. */
-export async function getTebexPackage(packageId: number) {
-  return tebexFetch<{ data: TebexPackage }>(
-    `/accounts/${WEBSTORE_TOKEN}/packages/${packageId}`,
-    { next: { revalidate: 300 } }
-  );
 }
 
 /**
@@ -169,7 +128,7 @@ export async function createBasket(params: {
   cancelUrl: string;
   custom?: Record<string, string>;
 }) {
-  return tebexFetch<{ data: TebexBasket }>(`/accounts/${WEBSTORE_TOKEN}/baskets`, {
+  return tebexFetch<{ data: Basket }>(`/accounts/${WEBSTORE_TOKEN}/baskets`, {
     method: "POST",
     body: JSON.stringify({
       complete_url: params.completeUrl,
@@ -188,7 +147,7 @@ export async function createBasket(params: {
  * not require authentication.
  */
 export async function getBasketAuthLinks(basketIdent: string, returnUrl: string) {
-  return tebexFetch<TebexAuthOption[]>(
+  return tebexFetch<AuthOption[]>(
     `/accounts/${WEBSTORE_TOKEN}/baskets/${basketIdent}/auth?returnUrl=${encodeURIComponent(
       returnUrl
     )}`,
@@ -210,7 +169,7 @@ export async function addPackageToBasket(
   packageId: number,
   quantity = 1
 ) {
-  return tebexFetch<{ data: TebexBasket }>(`/baskets/${basketIdent}/packages`, {
+  return tebexFetch<{ data: Basket }>(`/baskets/${basketIdent}/packages`, {
     method: "POST",
     body: JSON.stringify({ package_id: packageId, quantity }),
   });
@@ -218,10 +177,8 @@ export async function addPackageToBasket(
 
 /** Retrieve an existing basket, including its checkout link. */
 export async function getBasket(basketIdent: string) {
-  return tebexFetch<{ data: TebexBasket }>(
+  return tebexFetch<{ data: Basket }>(
     `/accounts/${WEBSTORE_TOKEN}/baskets/${basketIdent}`,
     { cache: "no-store" }
   );
 }
-
-export { TebexError };

@@ -10,10 +10,13 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
+import { CartIcon } from "@/components/cart/cart-icon";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 
 export function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
+    const [cartOpen, setCartOpen] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -87,7 +90,8 @@ export function Navbar() {
                             ))}
                         </nav>
 
-                        <div className="hidden items-center gap-3 md:flex">
+                        <div className="hidden items-center gap-1 md:flex">
+                            <CartIcon onClick={() => setCartOpen(true)} />
                             <Button asChild size="sm" variant="secondary">
                                 <a
                                     href={siteConfig.discord}
@@ -103,18 +107,21 @@ export function Navbar() {
                             </Button>
                         </div>
 
-                        <button
-                            className="flex h-10 w-10 items-center justify-center rounded-full text-foreground md:hidden"
-                            onClick={() => setOpen((v) => !v)}
-                            aria-label="Toggle menu"
-                            data-cursor-hover
-                        >
+                        <div className="flex items-center gap-1 md:hidden">
+                            <CartIcon onClick={() => setCartOpen(true)} />
+                            <button
+                                className="flex h-10 w-10 items-center justify-center rounded-full text-foreground"
+                                onClick={() => setOpen((v) => !v)}
+                                aria-label="Toggle menu"
+                                data-cursor-hover
+                            >
                             {open ? (
                                 <X className="h-5 w-5" />
                             ) : (
                                 <Menu className="h-5 w-5" />
                             )}
                         </button>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -166,6 +173,8 @@ export function Navbar() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
         </>
     );
 }

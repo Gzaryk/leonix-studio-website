@@ -12,11 +12,3 @@ export function formatPrice(amount: number, currency = "USD") {
     minimumFractionDigits: 2,
   }).format(amount);
 }
-
-export function slugify(input: string) {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)+/g, "");
-}
