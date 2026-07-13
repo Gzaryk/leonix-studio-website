@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   const base = origin(req);
   const slug = req.nextUrl.searchParams.get("slug");
 
-  if (!isTebexConfigured) {
+  if (!isTebexConfigured()) {
     return NextResponse.redirect(
       new URL(`/product/${slug ?? ""}?checkout=unavailable`, base)
     );

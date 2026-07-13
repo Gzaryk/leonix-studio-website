@@ -54,7 +54,15 @@ const TEBEX_API_BASE_URL =
 
 const WEBSTORE_TOKEN = process.env.TEBEX_WEBSTORE_TOKEN;
 
-export const isTebexConfigured = Boolean(WEBSTORE_TOKEN);
+export function isTebexConfigured() {
+  return Boolean(process.env.TEBEX_WEBSTORE_TOKEN);
+}
+
+export function getWebstoreToken() {
+  const token = WEBSTORE_TOKEN ?? process.env.TEBEX_WEBSTORE_TOKEN;
+  if (!token) throw new Error("Tebex is not configured. Set TEBEX_WEBSTORE_TOKEN in your environment.");
+  return token;
+}
 
 /**
  * Low-level fetch wrapper. `path` is relative to `${TEBEX_API_BASE_URL}`

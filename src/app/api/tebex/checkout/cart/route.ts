@@ -7,7 +7,7 @@ const origin = (req: NextRequest) => req.nextUrl.origin;
 export async function GET(req: NextRequest) {
   const base = origin(req);
 
-  if (!isTebexConfigured) {
+  if (!isTebexConfigured()) {
     return NextResponse.redirect(new URL("/shop?checkout=unavailable", base));
   }
 
