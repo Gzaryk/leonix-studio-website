@@ -33,6 +33,7 @@ export async function GET(req: NextRequest) {
 
     const callbackUrl = new URL("/api/tebex/checkout/callback", base);
     callbackUrl.searchParams.set("ident", basketIdent);
+    callbackUrl.searchParams.set("items", JSON.stringify(items));
 
     const authOptions = await getBasketAuthLinks(basketIdent, callbackUrl.toString());
 
