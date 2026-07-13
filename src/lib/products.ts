@@ -90,7 +90,7 @@ faq: [
       "Small adjustments may be possible depending on the request. For larger modifications or custom MLO work, contact us for a quote.",
       },
     ],
-    tags: ["mlo", "penthouse", "roleplay", "featured"],
+    tags: ["mlo", "clothing", "retail", "featured"],
     featured: true,
     new: true,
     rating: 4.9,

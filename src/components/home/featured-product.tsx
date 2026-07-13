@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 
 export function FeaturedProduct({ product }: { product: Product }) {
   return (
-    <section className="relative mx-auto max-w-7xl px-6 py-32 lg:px-8">
+    <section className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -83,7 +83,7 @@ export function FeaturedProduct({ product }: { product: Product }) {
             ))}
           </ul>
 
-          <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-8">
+          <div className="mt-10 flex flex-col items-center justify-between border-t border-white/10 pt-8 max-sm:text-center sm:flex-row">
             <div>
               <div className="flex items-baseline gap-2">
                 <span className="font-display text-3xl font-semibold">
@@ -97,7 +97,7 @@ export function FeaturedProduct({ product }: { product: Product }) {
               </div>
               <span className="text-xs text-muted">One-time purchase</span>
             </div>
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="sm:mt-0 max-sm:mt-6">
               <Link href={`/product/${product.slug}`}>View Details</Link>
             </Button>
           </div>

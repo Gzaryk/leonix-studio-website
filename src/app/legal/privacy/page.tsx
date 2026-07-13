@@ -58,7 +58,7 @@ export default function PrivacyPage() {
         description="Last updated: July 2026"
       />
 
-      <section className="mx-auto max-w-3xl px-6 pb-32 lg:px-8">
+      <section className="mx-auto max-w-3xl px-6 pb-20 pt-20 lg:px-8">
         <div className="glass space-y-8 rounded-3xl p-8 sm:p-12">
           {sections.map((section) => (
             <div key={section.title}>

@@ -6,7 +6,15 @@ export const siteConfig = {
     "Leonix Studio crafts premium, high-fidelity FiveM assets — MLOs, scripts and interiors — built for serious roleplay servers that demand cinematic quality.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   discord: process.env.NEXT_PUBLIC_DISCORD_URL ?? "https://discord.gg/9tJWEFUXTQ",
-  ogImage: "/images/og-cover.jpg",
+  logo: "/images/nav_logo.png",
+  ogImage: "/images/og-cover.webp",
+  favicon: {
+    png: "/images/favicon/favicon-96x96.png",
+    svg: "/images/favicon/favicon.svg",
+    ico: "/images/favicon/favicon.ico",
+    apple: "/images/favicon/apple-touch-icon.png",
+    manifest: "/images/favicon/site.webmanifest",
+  },
   keywords: [
     "FiveM",
     "FiveM MLO",

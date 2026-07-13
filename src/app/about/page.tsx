@@ -45,7 +45,7 @@ export default function AboutPage() {
         description="Leonix Studio is an independent FiveM development studio built around one simple goal: creating resources we'd be excited to use ourselves."
       />
 
-      <section className="mx-auto max-w-4xl px-6 pb-24 lg:px-8">
+      <section className="mx-auto max-w-4xl px-6 pb-20 pt-20 lg:px-8">
         <div className="glass rounded-3xl p-8 sm:p-12">
           <p className="text-lg leading-relaxed text-muted">
             Leonix Studio wasn&apos;t created to become another marketplace filled
@@ -68,7 +68,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-32 lg:px-8">
+      <section className="mx-auto max-w-7xl px-6 pb-20 pt-20 lg:px-8">
         <div className="grid gap-6 sm:grid-cols-2">
           {values.map((value) => (
             <div

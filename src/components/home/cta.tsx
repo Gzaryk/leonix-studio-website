@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export function Cta() {
   return (
-    <section className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8">
+    <section className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8">
       <motion.div
         initial="hidden"
         whileInView="visible"
