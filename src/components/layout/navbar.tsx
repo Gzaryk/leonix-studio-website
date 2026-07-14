@@ -62,7 +62,7 @@ export function Navbar() {
                             </span>
                         </Link>
 
-                        <nav className="hidden items-center gap-1 md:flex">
+                        <nav className="hidden items-center gap-2 md:flex">
                             {siteConfig.nav.map((item) => (
                                 <Link
                                     key={item.href}
@@ -90,7 +90,7 @@ export function Navbar() {
                             ))}
                         </nav>
 
-                        <div className="hidden items-center gap-1 md:flex">
+                        <div className="hidden items-center gap-2 md:flex">
                             <CartIcon onClick={() => setCartOpen(true)} />
                             <Button asChild size="sm" variant="secondary">
                                 <a

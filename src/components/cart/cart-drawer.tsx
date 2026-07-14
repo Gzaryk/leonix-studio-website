@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,14 +12,22 @@ import { Button } from "@/components/ui/button";
 export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [checkingOut, setCheckingOut] = useState(false);
   const { items, itemCount, total, removeItem, clearCart } = useCart();
+  const scrollYRef = useRef(0);
 
   useEffect(() => {
     if (open) {
+      scrollYRef.current = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollYRef.current}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
     } else {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
       document.body.style.overflow = "";
+      window.scrollTo(0, scrollYRef.current);
     }
-    return () => { document.body.style.overflow = ""; };
   }, [open]);
 
   return (
@@ -120,7 +128,7 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
 
                   <div className="flex gap-3">
                     <Button variant="secondary" size="sm" onClick={clearCart} className="flex-1">
-                      Clear
+                      <Trash2 className="h-3.5 w-3.5" /> Clear
                     </Button>
                     <Button
                       size="sm"

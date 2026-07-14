@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useReducer, useEffect, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useReducer, useEffect, useCallback, useState, type ReactNode } from "react";
 import type { Product } from "@/types";
 
 export interface CartItem {
@@ -51,6 +51,7 @@ interface CartContextValue {
   items: CartItem[];
   itemCount: number;
   total: number;
+  hydrated: boolean;
   addItem: (product: Product, quantity?: number) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -74,9 +75,11 @@ function loadCart(): CartItem[] {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     dispatch({ type: "HYDRATE", items: loadCart() });
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
@@ -111,7 +114,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items: state.items, itemCount, total, addItem, removeItem, updateQuantity, clearCart, isInCart }}
+      value={{ items: state.items, itemCount, total, hydrated, addItem, removeItem, updateQuantity, clearCart, isInCart }}
     >
       {children}
     </CartContext.Provider>

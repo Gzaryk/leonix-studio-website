@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
@@ -10,35 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { AmbientBackground } from "@/components/shared/ambient-background";
 
 export function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springX = useSpring(mouseX, { stiffness: 60, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 60, damping: 20 });
-
-  const glowX = useTransform(springX, (v) => `${v}px`);
-  const glowY = useTransform(springY, (v) => `${v}px`);
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  }
-
   return (
-    <section
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6"
-    >
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6">
       <AmbientBackground />
-
-      <motion.div
-        className="pointer-events-none absolute h-[28rem] w-[28rem] rounded-full bg-primary/20 blur-[110px]"
-        style={{ left: glowX, top: glowY, translateX: "-50%", translateY: "-50%" }}
-      />
 
       <motion.div
         initial={{ opacity: 0, y: 12 }}
