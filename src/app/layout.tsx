@@ -61,15 +61,15 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "/",
     },
-  icons: {
-    icon: [
-      { url: siteConfig.favicon.png, sizes: "96x96", type: "image/png" },
-      { url: siteConfig.favicon.svg, type: "image/svg+xml" },
-    ],
-    shortcut: siteConfig.favicon.ico,
-    apple: [{ url: siteConfig.favicon.apple, sizes: "180x180" }],
-    other: [{ rel: "manifest", url: siteConfig.favicon.manifest }],
-  },
+    icons: {
+        icon: [
+            { url: siteConfig.favicon.png, sizes: "96x96", type: "image/png" },
+            { url: siteConfig.favicon.svg, type: "image/svg+xml" },
+        ],
+        shortcut: siteConfig.favicon.ico,
+        apple: [{ url: siteConfig.favicon.apple, sizes: "180x180" }],
+        other: [{ rel: "manifest", url: siteConfig.favicon.manifest }],
+    },
     other: {
         "apple-mobile-web-app-title": "Leonix",
         "theme-color": "#09090b",
@@ -80,7 +80,11 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en" className={inter.variable} data-scroll-behavior="smooth">
+        <html
+            lang="en"
+            className={inter.variable}
+            data-scroll-behavior="smooth"
+        >
             <body className="bg-background font-sans text-foreground antialiased">
                 <Providers>
                     <Navbar />
