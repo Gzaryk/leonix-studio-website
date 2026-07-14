@@ -50,96 +50,104 @@
 import "server-only";
 
 const TEBEX_API_BASE_URL =
-  process.env.TEBEX_API_BASE_URL ?? "https://headless.tebex.io/api";
+    process.env.TEBEX_API_BASE_URL ?? "https://headless.tebex.io/api";
 
 export function isTebexConfigured() {
-  return Boolean(process.env.TEBEX_WEBSTORE_TOKEN);
+    return Boolean(process.env.TEBEX_WEBSTORE_TOKEN);
 }
 
 function token() {
-  const t = process.env.TEBEX_WEBSTORE_TOKEN;
-  if (!t) throw new Error("Tebex is not configured. Set TEBEX_WEBSTORE_TOKEN in your environment.");
-  return t;
+    const t = process.env.TEBEX_WEBSTORE_TOKEN;
+    if (!t)
+        throw new Error(
+            "Tebex is not configured. Set TEBEX_WEBSTORE_TOKEN in your environment.",
+        );
+    return t;
 }
 
 async function tebexFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${TEBEX_API_BASE_URL}${path}`, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      ...init?.headers,
-    },
-    cache: init?.cache ?? "no-store",
-  });
+    const res = await fetch(`${TEBEX_API_BASE_URL}${path}`, {
+        ...init,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            ...init?.headers,
+        },
+        cache: init?.cache ?? "no-store",
+    });
 
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`Tebex request failed (${res.status}): ${body || res.statusText}`);
-  }
+    if (!res.ok) {
+        const body = await res.text().catch(() => "");
+        throw new Error(
+            `Tebex request failed (${res.status}): ${body || res.statusText}`,
+        );
+    }
 
-  if (res.status === 204) return undefined as T;
+    if (res.status === 204) return undefined as T;
 
-  return res.json() as Promise<T>;
+    return res.json() as Promise<T>;
 }
 
 export interface AuthOption {
-  name: string;
-  url: string;
+    name: string;
+    url: string;
 }
 
 interface Basket {
-  ident: string;
-  id: number;
-  complete: boolean;
-  email: string | null;
-  username: string | null;
-  username_id?: string | number | null;
-  base_price: number;
-  sales_tax: number;
-  total_price: number;
-  currency: string;
-  packages: unknown[];
-  links: { payment?: string; checkout: string };
+    ident: string;
+    id: number;
+    complete: boolean;
+    email: string | null;
+    username: string | null;
+    username_id?: string | number | null;
+    base_price: number;
+    sales_tax: number;
+    total_price: number;
+    currency: string;
+    packages: unknown[];
+    links: { payment?: string; checkout: string };
 }
 
 export async function createBasket(params: {
-  completeUrl: string;
-  cancelUrl: string;
-  custom?: Record<string, string>;
+    completeUrl: string;
+    cancelUrl: string;
+    custom?: Record<string, string>;
 }) {
-  return tebexFetch<{ data: Basket }>(`/accounts/${token()}/baskets`, {
-    method: "POST",
-    body: JSON.stringify({
-      complete_url: params.completeUrl,
-      cancel_url: params.cancelUrl,
-      complete_auto_redirect: true,
-      custom: params.custom ?? {},
-    }),
-  });
+    return tebexFetch<{ data: Basket }>(`/accounts/${token()}/baskets`, {
+        method: "POST",
+        body: JSON.stringify({
+            complete_url: params.completeUrl,
+            cancel_url: params.cancelUrl,
+            complete_auto_redirect: true,
+            custom: params.custom ?? {},
+        }),
+    });
 }
 
-export async function getBasketAuthLinks(basketIdent: string, returnUrl: string) {
-  return tebexFetch<AuthOption[]>(
-    `/accounts/${token()}/baskets/${basketIdent}/auth?returnUrl=${encodeURIComponent(returnUrl)}`,
-    { method: "GET" }
-  );
+export async function getBasketAuthLinks(
+    basketIdent: string,
+    returnUrl: string,
+) {
+    return tebexFetch<AuthOption[]>(
+        `/accounts/${token()}/baskets/${basketIdent}/auth?returnUrl=${encodeURIComponent(returnUrl)}`,
+        { method: "GET" },
+    );
 }
 
 export async function addPackageToBasket(
-  basketIdent: string,
-  packageId: number,
-  quantity = 1
+    basketIdent: string,
+    packageId: number,
+    quantity = 1,
 ) {
-  return tebexFetch<{ data: Basket }>(`/baskets/${basketIdent}/packages`, {
-    method: "POST",
-    body: JSON.stringify({ package_id: packageId, quantity }),
-  });
+    return tebexFetch<{ data: Basket }>(`/baskets/${basketIdent}/packages`, {
+        method: "POST",
+        body: JSON.stringify({ package_id: packageId, quantity }),
+    });
 }
 
 export async function getBasket(basketIdent: string) {
-  return tebexFetch<{ data: Basket }>(
-    `/accounts/${token()}/baskets/${basketIdent}`,
-    { cache: "no-store" }
-  );
+    return tebexFetch<{ data: Basket }>(
+        `/accounts/${token()}/baskets/${basketIdent}`,
+        { cache: "no-store" },
+    );
 }
