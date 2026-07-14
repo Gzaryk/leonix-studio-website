@@ -84,7 +84,7 @@ export function BuyBox({ product }: { product: Product }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-strong sticky top-28 rounded-3xl p-8"
+            className="glass-strong mx-auto w-full max-w-lg rounded-3xl p-8 lg:mx-0 lg:max-w-none lg:sticky lg:top-28"
         >
             <div className="mb-4 flex items-center gap-2">
                 {product.featured && (
