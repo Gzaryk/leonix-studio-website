@@ -35,7 +35,7 @@ const sections = [
   {
     title: "6. Cookies",
     body:
-      "Our website uses a small number of essential cookies to provide basic functionality, such as remembering user preferences like theme settings. We do not use advertising trackers or analytics cookies.",
+      "Our website uses a small number of essential cookies to provide basic functionality, such as remembering user preferences. We also use analytics to understand overall site traffic patterns — this is optional and only activates when you accept the cookie consent banner. You can decline at any time.",
   },
   {
     title: "7. Changes to This Policy",

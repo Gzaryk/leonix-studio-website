@@ -6,6 +6,8 @@ import { Providers } from "@/components/providers/providers";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { JsonLd } from "@/components/shared/json-ld";
+import { CookieBanner } from "@/components/cookie-banner";
+import { AnalyticsWrapper } from "@/components/analytics-wrapper";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -85,6 +87,8 @@ export default function RootLayout({
                     <main className="relative">{children}</main>
                     <Footer />
                     <JsonLd />
+                    <CookieBanner />
+                    <AnalyticsWrapper />
                 </Providers>
             </body>
         </html>
