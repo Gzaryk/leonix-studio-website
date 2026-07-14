@@ -52,7 +52,7 @@ export const siteConfig = {
         ],
         Shop: [
             { label: "All Products", href: "/shop" },
-            { label: "Featured MLO", href: "/product/nova-heights-penthouse" },
+            { label: "Featured MLO", href: "/shop?category=featured" },
         ],
         Legal: [
             { label: "Terms of Service", href: "/legal/terms" },

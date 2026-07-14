@@ -7,16 +7,16 @@ import { Cta } from "@/components/home/cta";
 import { getFeaturedProduct } from "@/lib/products";
 
 export default function HomePage() {
-  const featured = getFeaturedProduct();
+    const featured = getFeaturedProduct();
 
-  return (
-    <>
-      <Hero />
-      <Marquee />
-      <FeaturedProduct product={featured} />
-      <Stats />
-      <Process />
-      <Cta />
-    </>
-  );
+    return (
+        <>
+            <Hero />
+            <Marquee />
+            <FeaturedProduct product={featured} />
+            <Stats />
+            <Process />
+            <Cta />
+        </>
+    );
 }
