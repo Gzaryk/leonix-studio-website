@@ -77,13 +77,17 @@ export function Navbar() {
                                     {item.label}
                                     {pathname === item.href && (
                                         <motion.span
-                                            layoutId="nav-pill"
-                                            className="absolute inset-0 -z-10 rounded-full bg-white/8"
-                                            transition={{
-                                                type: "spring",
-                                                stiffness: 350,
-                                                damping: 30,
+                                            key={pathname}
+                                            initial={{
+                                                opacity: 0,
+                                                scale: 0.85,
                                             }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{
+                                                duration: 0.25,
+                                                ease: "easeOut",
+                                            }}
+                                            className="absolute inset-0 -z-10 rounded-full bg-white/8"
                                         />
                                     )}
                                 </Link>
@@ -115,12 +119,12 @@ export function Navbar() {
                                 aria-label="Toggle menu"
                                 data-cursor-hover
                             >
-                            {open ? (
-                                <X className="h-5 w-5" />
-                            ) : (
-                                <Menu className="h-5 w-5" />
-                            )}
-                        </button>
+                                {open ? (
+                                    <X className="h-5 w-5" />
+                                ) : (
+                                    <Menu className="h-5 w-5" />
+                                )}
+                            </button>
                         </div>
                     </div>
                 </div>
