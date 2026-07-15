@@ -13,7 +13,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             </ConsentProvider>
             <Toaster
                 theme="dark"
-                position="bottom-right"
+                position="bottom-left"
                 closeButton
                 toastOptions={{
                     style: {
