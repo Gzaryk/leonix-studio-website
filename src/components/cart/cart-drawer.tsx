@@ -10,6 +10,7 @@ import {
     ShoppingBag,
     ShieldCheck,
     ArrowUpRight,
+    Loader2,
 } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 import { formatPrice } from "@/lib/utils";
@@ -181,7 +182,6 @@ export function CartDrawer({
                                             disabled={checkingOut}
                                             onClick={() => {
                                                 setCheckingOut(true);
-                                                onClose();
                                                 const params =
                                                     new URLSearchParams({
                                                         items: JSON.stringify(
@@ -197,7 +197,10 @@ export function CartDrawer({
                                             }}
                                         >
                                             {checkingOut ? (
-                                                "Redirecting..."
+                                                <>
+                                                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                                    Redirecting...
+                                                </>
                                             ) : (
                                                 <>
                                                     Checkout{" "}
