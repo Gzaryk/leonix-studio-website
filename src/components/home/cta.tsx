@@ -19,11 +19,11 @@ export function Cta() {
                 <div className="pointer-events-none absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/25 blur-[130px]" />
                 <div className="relative z-10">
                     <h2 className="mx-auto max-w-2xl font-display text-4xl font-semibold leading-tight sm:text-5xl">
-                        Give your server the interior it deserves.
+                        Designed with the community, for the community.
                     </h2>
                     <p className="mx-auto mt-4 max-w-lg text-muted">
-                        Nova Heights Penthouse is live now. More premium assets
-                        are already in development.
+                        Stock 305 Penthouse is live now. More premium assets are
+                        already in development.
                     </p>
                     <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <Button asChild size="lg">
