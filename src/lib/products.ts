@@ -34,7 +34,7 @@ export const products: Product[] = [
         ],
         features: [
             "Fully custom interior — no retexture kits",
-            "Cinematic day/night lighting pass",
+            "Escrow Protection",
             "Optimized for zero client-side FPS impact",
             "Custom MLO-safe collisions & nav mesh",
             "Includes YMAP, interior + exterior entrances",
@@ -89,8 +89,8 @@ export const products: Product[] = [
         tags: ["mlo", "clothing", "featured"],
         featured: true,
         new: true,
-        rating: 4.9,
-        reviewCount: 27,
+        rating: 0.0,
+        reviewCount: 0,
         youtubeUrl: "https://www.youtube.com/watch?v=8pYaqw27r50",
     },
 ];
