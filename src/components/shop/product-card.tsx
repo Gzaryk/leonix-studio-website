@@ -64,14 +64,20 @@ export function ProductCard({
                 </div>
 
                 <div className="flex flex-1 flex-col p-6">
-                    {product.rating && (
+                    {(product.rating != null || product.reviewCount != null) && (
                         <div className="mb-2 flex items-center gap-1.5 text-xs text-secondary">
-                            <Star className="h-3.5 w-3.5 fill-secondary" />
-                            <span className="font-medium">
-                                {product.rating}
-                            </span>
+                            {product.rating != null && product.rating > 0 && (
+                                <>
+                                    <Star className="h-3.5 w-3.5 fill-secondary" />
+                                    <span className="font-medium">
+                                        {product.rating}
+                                    </span>
+                                </>
+                            )}
                             <span className="text-muted">
-                                ({product.reviewCount})
+                                {product.reviewCount != null && product.reviewCount > 0
+                                    ? `(${product.reviewCount})`
+                                    : '(No reviews)'}
                             </span>
                         </div>
                     )}

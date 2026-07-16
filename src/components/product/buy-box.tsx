@@ -107,12 +107,18 @@ export function BuyBox({ product }: { product: Product }) {
                 {product.name}
             </h1>
 
-            {product.rating && (
+            {(product.rating != null || product.reviewCount != null) && (
                 <div className="mt-3 flex items-center gap-1.5 text-sm text-secondary">
-                    <Star className="h-4 w-4 fill-secondary" />
-                    <span className="font-medium">{product.rating}</span>
+                    {product.rating != null && product.rating > 0 && (
+                        <>
+                            <Star className="h-4 w-4 fill-secondary" />
+                            <span className="font-medium">{product.rating}</span>
+                        </>
+                    )}
                     <span className="text-muted">
-                        ({product.reviewCount} reviews)
+                        {product.reviewCount != null && product.reviewCount > 0
+                            ? `(${product.reviewCount} review${product.reviewCount > 1 ? 's' : ''})`
+                            : '(No reviews)'}
                     </span>
                 </div>
             )}

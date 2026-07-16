@@ -106,6 +106,16 @@ export function Navbar() {
                                     <ArrowUpRight className="h-3.5 w-3.5" />
                                 </a>
                             </Button>
+                            <Button asChild size="sm" variant="secondary">
+                                <a
+                                    href="https://cfx.re/join/pgalbl5"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    Server Showcase{" "}
+                                    <ArrowUpRight className="h-3.5 w-3.5" />
+                                </a>
+                            </Button>
                             <Button asChild size="sm">
                                 <Link href="/shop">Shop Now</Link>
                             </Button>
@@ -167,6 +177,15 @@ export function Navbar() {
                                         rel="noreferrer"
                                     >
                                         Join Discord
+                                    </a>
+                                </Button>
+                                <Button asChild variant="secondary">
+                                    <a
+                                        href="https://cfx.re/join/pgalbl5"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        Server Showcase
                                     </a>
                                 </Button>
                                 <Button asChild>

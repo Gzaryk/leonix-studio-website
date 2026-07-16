@@ -22,8 +22,8 @@ export function Cta() {
                         Designed with the community, for the community.
                     </h2>
                     <p className="mx-auto mt-4 max-w-lg text-muted">
-                        Stock 305 Penthouse is live now. More premium assets are
-                        already in development.
+                        Collaborate on production planning and design decisions
+                        through our Discord server.
                     </p>
                     <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <Button asChild size="lg">

@@ -86,10 +86,16 @@ export function FeaturedProduct({ product }: { product: Product }) {
 
                 <div className="flex flex-col justify-center p-8 sm:p-12">
                     <div className="mb-3 flex items-center gap-2 text-sm text-secondary">
-                        <Star className="h-4 w-4 fill-secondary" />
-                        <span className="font-medium">{product.rating}</span>
+                        {product.rating != null && product.rating > 0 && (
+                            <>
+                                <Star className="h-4 w-4 fill-secondary" />
+                                <span className="font-medium">{product.rating}</span>
+                            </>
+                        )}
                         <span className="text-muted">
-                            ({product.reviewCount} reviews)
+                            {product.reviewCount != null && product.reviewCount > 0
+                                ? `(${product.reviewCount} review${product.reviewCount > 1 ? 's' : ''})`
+                                : '(No reviews)'}
                         </span>
                     </div>
 
