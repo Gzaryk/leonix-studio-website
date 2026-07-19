@@ -204,3 +204,4 @@ export function getProductCategories(): { label: string; value: string }[] {
         { label: "Bundles", value: "bundle" },
     ];
 }
+   
