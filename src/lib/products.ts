@@ -86,12 +86,93 @@ export const products: Product[] = [
                 answer: "Small adjustments may be possible depending on the request. For larger modifications or custom MLO work, contact us for a quote.",
             },
         ],
-        tags: ["mlo", "clothing", "featured"],
+        tags: ["mlo", "cabaret", "featured"],
         featured: true,
         new: true,
         rating: 0.0,
         reviewCount: 0,
         youtubeUrl: "https://www.youtube.com/watch?v=8pYaqw27r50",
+    },
+        {
+        id: "delights-cabaret",
+        tebexPackageId: 7568778,
+        slug: "delights-cabaret",
+        name: "DELIGHTS CABARET",
+        category: "mlo",
+        tagline: "Where dazzling performances meet unforgettable nights.",
+        description:
+            "A premium cabaret built for immersive roleplay. Featuring a stylish venue, captivating stage performances, VIP areas, and an authentic nightlife atmosphere, it provides the perfect place for players to relax, socialize, host events, and create unforgettable moments. Designed to fit naturally into any city, it adds a new level of entertainment to your roleplay experience.",
+        price: 20.0,
+        compareAtPrice: 25.99,
+        currency: "EUR",
+        images: [
+            "/images/products/delights-cabaret/herodelight.png",
+            "/images/products/delights-cabaret/ext1.png",
+            "/images/products/delights-cabaret/ext2.png",
+            "/images/products/delights-cabaret/ext3.png",
+            "/images/products/delights-cabaret/int1.png",
+            "/images/products/delights-cabaret/int3.png",
+        ],
+        features: [
+            "Fully custom interior — no retexture kits",
+            "Escrow Protection",
+            "Optimized for zero client-side FPS impact",
+            "Custom MLO-safe collisions & nav mesh",
+            "Includes YMAP, interior + exterior entrances",
+            "Free lifetime updates & priority Discord support",
+        ],
+        requirements: [
+            "FiveM server with custom resource support",
+            "Any framework supported (ESX, QBCore, QBox or standalone)",
+            "Minimum server storage: ~50MB",
+            "Compatible emote system required for the best experience",
+        ],
+        installation: [
+            {
+                title: "Extract the resource",
+                description:
+                    "Unzip the purchased archive into your server's `resources` folder and keep the original resource structure intact.",
+            },
+            {
+                title: "Add the resource to your server.cfg",
+                description:
+                    "Add `ensure sandy_cabaret` to your server.cfg to start the MLO with your server.",
+            },
+            {
+                title: "Check resource placement",
+                description:
+                    "Make sure the resource folder is correctly placed inside your server resources directory and that all files are included.",
+            },
+            {
+                title: "Restart and verify",
+                description:
+                    "Restart your server, visit the clothing store location, and confirm the interior, props, and collisions are loading correctly.",
+            },
+        ],
+        faq: [
+            {
+                question: "Is this MLO standalone?",
+                answer: "Yes. This clothing store MLO is completely standalone and can be used with any FiveM framework or custom server setup. No additional dependencies are required.",
+            },
+            {
+                question: "Will it affect server performance?",
+                answer: "No. The interior is optimized for FiveM with clean assets, optimized props, and proper streaming to keep performance impact as low as possible.",
+            },
+            {
+                question: "Do I get updates after purchase?",
+                answer: "Yes, any future fixes, improvements, and optimization updates for this MLO are included after purchase.",
+            },
+            {
+                question: "Can I request custom edits?",
+                answer: "Small adjustments may be possible depending on the request. For larger modifications or custom MLO work, contact us for a quote.",
+            },
+        ],
+        tags: ["mlo", "cabaret", "featured"],
+        featured: true,
+        new: true,
+        rating: 0.0,
+        reviewCount: 0,
+        youtubeUrl: "https://youtu.be/qVVFQwBTviM",
     },
 ];
 
@@ -119,6 +200,7 @@ export function getProductCategories(): { label: string; value: string }[] {
         { label: "Scripts", value: "script" },
         { label: "Vehicles", value: "vehicle" },
         { label: "Clothing", value: "clothing" },
+        { label: "Cabaret", value: "cabaret" },
         { label: "Bundles", value: "bundle" },
     ];
 }
